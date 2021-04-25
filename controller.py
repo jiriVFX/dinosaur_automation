@@ -3,9 +3,6 @@ import PIL
 
 
 class Controller:
-    def __init__(self):
-        self.bot = 0
-
     def open_game(self):
         """Opens the Chrome browser and starts the dinosaur game."""
         # Get the screen size
