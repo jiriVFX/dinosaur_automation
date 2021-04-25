@@ -10,6 +10,7 @@ class ScreenReader:
         self.obstacle_colour = BLACK
 
     def capture_screen(self):
+        """Captures the area of the screen with the dino game. Converts all pixels to either 0 black or 255 white."""
         # convert screenshot to monochrome
         self.screen_grab = ImageGrab.grab(bbox=(630, 80, 1280, 280))
         # Convert all pixels to 255 or 0
@@ -32,32 +33,20 @@ class ScreenReader:
         """Detects Day / Night modes and obstacles.
         When obstacle is detected returns True, otherwise returns False.
         :rtype: bool"""
-        # Dinosaur and obstacles colour during the day mode - (83, 83, 83)
-        # Dinosaur and obstacles colour during the night mode - (172, 172, 172)
-
-        # If any of the pixels in day mode gets dark -> jump
-        # If all pixels are dark, night mode is on
-        # If all pixels are light, day mode is on
-
         # Check mode detection pixel
         if self.pixels[POS_MODE[0], POS_MODE[1]] == self.obstacle_colour:
             # Day / Night mode has been changed
             if self.obstacle_colour == WHITE:
                 self.obstacle_colour = BLACK
-                #self.obstacle_colour = GREY
                 print("Day mode is on.")
             else:
                 self.obstacle_colour = WHITE
                 print("Night mode is on.")
 
         for position in POS:
-            # print(self.pixels[position[0], position[1]])
             if self.pixels[position[0], position[1]] == self.obstacle_colour:
                 print(f"Pixel = {self.obstacle_colour}")
                 # if obstacle was detected, return True
                 return True
         # Otherwise return False
         return False
-
-        # self.screen_grab.save("screengrab.png")
-        # self.screen_grab.show()
